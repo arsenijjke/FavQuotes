@@ -1,6 +1,6 @@
 package com.arsenijjke.favquotes.di
 
-import com.arsenijjke.favquotes.network.QuoteService
+import com.arsenijjke.data.network.QuoteService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 @[Module InstallIn(SingletonComponent::class)]
-class RetrofitModule {
+object RetrofitModule {
 
     @Provides
     fun provideRetrofit(): QuoteService {

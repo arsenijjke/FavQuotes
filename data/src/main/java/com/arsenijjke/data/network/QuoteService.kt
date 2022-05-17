@@ -1,4 +1,4 @@
-package com.arsenijjke.favquotes.network
+package com.arsenijjke.data.network
 
 import com.arsenijjke.domain.models.Quote
 import com.arsenijjke.domain.models.QuoteOfTheDay
