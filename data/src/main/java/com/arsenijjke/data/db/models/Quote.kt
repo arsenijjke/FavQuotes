@@ -3,15 +3,35 @@ package com.arsenijjke.data.db.models
 import androidx.room.TypeConverter
 import com.arsenijjke.domain.models.Quote
 
-@TypeConverter
-fun byteArrayToQuote(data: String?): Quote? {
-    var author: String = TODO()
-    var body: String = TODO()
-    var id: Int = TODO()
-    return Quote(author, body, id)
-}
+class TypeConverterQuote {
+    @TypeConverter
+    fun stringToQuote(data: String?): Quote {
+        var author = ""
+        var body = ""
+        var id = 0
+        val list = mutableListOf<Any>(author, body, id)
 
-@TypeConverter
-fun quoteToString(quote: Quote): String {
-    return quote.author + " " + quote.body + " " + quote.id.toString()
+        if (data != null) {
+            var i = 0
+            var j = 0
+            var temp: String = ""
+
+            while (data[i] != data.last()) {
+                temp += data[i]
+                if (data[i] == '#') {
+                    list[j] = temp
+                    temp = ""
+                    j++
+                }
+                i++
+            }
+        }
+        return Quote(author = author, body = body, id = id)
+    }
+
+    @TypeConverter
+    fun quoteToString(quote: Quote): String {
+        return quote.author + "#" + quote.body + "#" + quote.id.toString()
+    }
+
 }
