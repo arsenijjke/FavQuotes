@@ -4,6 +4,7 @@
     <bytecodeTargetLevel target="1.7">
       <module name="FavQuotes.app" target="14" />
       <module name="FavQuotes.data" target="14" />
+      <module name="FavQuotes.ui" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -10,3 +10,4 @@ rootProject.name = "FavQuotes"
 include ':app'
 include ':domain'
 include ':data'
+include ':ui'
