@@ -6,20 +6,21 @@ import com.arsenijjke.data.db.dao.QuotesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @[Module InstallIn(SingletonComponent::class)]
 object DatabaseModule {
 
-    @Provides
     @Singleton
-    fun provideDatabase(context: Context): QuotesDatabase {
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context): QuotesDatabase {
         return QuotesDatabase.getQuotesDB(context)
     }
 
-    @Provides
     @Singleton
+    @Provides
     fun provideDao(db: QuotesDatabase): QuotesDao {
         return db.getDao()
     }

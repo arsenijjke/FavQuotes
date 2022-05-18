@@ -11,7 +11,7 @@ import com.arsenijjke.data.db.models.FavouriteQuote
 interface QuotesDao {
 
     @Query("SELECT * FROM Quotes_DB")
-    fun getAllQuotes(): LiveData<FavouriteQuote>
+    fun getAllQuotes(): LiveData<List<FavouriteQuote>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addQuote(quote: FavouriteQuote)
