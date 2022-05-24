@@ -18,5 +18,18 @@
 
     <style name="Theme.FavQuotes" parent="Base.Theme.FavQuotes" />
 
+    <style name="Theme.FavQuotes.Toolbar">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Base.V24.Theme.FavQuotes.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Base.V24.Theme.FavQuotes.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Base.V24.Theme.FavQuotes.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

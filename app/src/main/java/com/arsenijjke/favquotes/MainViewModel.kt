@@ -1,4 +1,4 @@
-package com.arsenijjke.favquotes.ui.main
+package com.arsenijjke.favquotes
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
