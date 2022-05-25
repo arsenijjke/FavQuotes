@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="toolbar">#9E00FF</color>
+    <color name="background_night">#052452</color>
+
+    <color name="quote_canvas_night">#333</color>
+    <color name="quote_canvas_light">#D9D9D9</color>
 </resources>

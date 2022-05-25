@@ -1,6 +1,6 @@
 package com.arsenijjke.domain.models
 
 data class QuoteOfTheDay(
-    val qotd_date: String,
-    val quote: QuoteX
+    var qotd_date: String,
+    var quote: QuoteX
 )

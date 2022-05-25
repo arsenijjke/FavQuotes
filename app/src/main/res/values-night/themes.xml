@@ -4,18 +4,30 @@
     <!-- Primary brand color. -->
     <item name="colorPrimary">@color/purple_200</item>
     <item name="colorPrimaryVariant">@color/purple_700</item>
-    <item name="colorOnPrimary">@color/black</item>
+    <item name="colorOnPrimary">@color/background_night</item>
     <!-- Secondary brand color. -->
     <item name="colorSecondary">@color/teal_200</item>
     <item name="colorSecondaryVariant">@color/teal_200</item>
-    <item name="colorOnSecondary">@color/black</item>
-    <!-- Status bar color. -->
+    <item name="colorOnSecondary">@color/background_night</item>
     <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     <!-- Customize your theme here. -->
     </style>
     <style name="Base.Theme.FavQuotes" parent="Base.V24.Night.Theme.FavQuotes"/>
 
-    <style name="Theme.FavQuotes" parent="Base.Theme.FavQuotes">
-
+    <style name="Theme.Night.FavQuotes" parent="Base.Theme.FavQuotes">
+        <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="Theme.Night.FavQuotes.Toolbar">
+        <item name="android:background">@color/purple_500</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.Night.FavQuotes.CardView">
+        <item name="android:background">@color/purple_500</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>
