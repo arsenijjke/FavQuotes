@@ -1,6 +1,5 @@
-package com.arsenijjke.favquotes
+package com.arsenijjke.favquotes.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +17,7 @@ class MainViewModel @Inject constructor(private val repository: RetrofitReposito
 
         val quoteOfTheDay = MutableLiveData<QuoteOfTheDay>()
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
 
               val date = repository.getQuoteFromRepository().qotd_date
               val quote = repository.getQuoteFromRepository().quote

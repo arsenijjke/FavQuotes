@@ -1,16 +1,15 @@
-package com.arsenijjke.favquotes
+package com.arsenijjke.favquotes.ui
 
-import android.media.MediaRouter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.arsenijjke.favquotes.R
+import com.arsenijjke.favquotes.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentFirstBinding
-import com.google.android.material.snackbar.Snackbar
+import com.arsenijjke.domain.models.QuoteOfTheDay
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,40 +19,21 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel = viewModel()
-        showQuote(viewModel)
+        showQuote(getViewModel())
     }
 
     private fun showQuote(viewModel: MainViewModel) {
-
         binding.buttonFirst.setOnClickListener {
-            val quote = viewModel.getQuote()
-
             viewModel.getQuote().observe(this, {
-                binding.quoteAuthor.text = quote.value?.quote?.author
-                binding.quoteBody.text = quote.value?.quote?.body
+                setAdapter(it)
             })
         }
     }
 
-    fun onSwipe() {
-        val swipeGesture = object : SwipeGesture() {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-                when(direction) {
-
-                    ItemTouchHelper.UP -> {
-                        toQuoteInfo()
-                    }
-
-                    ItemTouchHelper.RIGHT -> {
-                        makeFavourite()
-                    }
-                }
-
-                super.onSwiped(viewHolder, direction)
-            }
-        }
+    private fun setAdapter(quoteOfTheDay: QuoteOfTheDay) {
+        val adapter = QuoteAdapter(quoteOfTheDay)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
     }
 
     private fun toQuoteInfo() {
@@ -64,7 +44,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         //TODO("By swiping right, add quote to favourites")
     }
 
-    private fun viewModel(): MainViewModel {
+    private fun getViewModel(): MainViewModel {
         return ViewModelProvider(this)[MainViewModel::class.java]
     }
 

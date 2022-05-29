@@ -1,8 +1,9 @@
-package com.arsenijjke.favquotes
+package com.arsenijjke.favquotes.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.arsenijjke.favquotes.R
 import com.arsenijjke.favquotes.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
