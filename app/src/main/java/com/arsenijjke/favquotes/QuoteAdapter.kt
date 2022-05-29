@@ -25,10 +25,8 @@ class QuoteAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
             holder.name.text = quoteOfTheDay.quote.author
             holder.body.text = quoteOfTheDay.quote.body
-
     }
 
     override fun getItemCount(): Int {
