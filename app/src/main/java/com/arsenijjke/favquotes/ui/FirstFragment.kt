@@ -87,6 +87,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             isCurrentlyActive: Boolean
         ) {
 
+            @SuppressLint("UseCompatLoadingForDrawables")
+            val icon = resources.getDrawable(
+                R.drawable.ic_baseline_favorite_24,
+                null
+            )
+
             super.onChildDrawOver(
                 c, recyclerView, viewHolder,
                 dX, dY, actionState, isCurrentlyActive
@@ -98,32 +104,26 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                     dX, viewHolder.itemView.bottom.toFloat()
                 )
 
-                val width = viewHolder.itemView.left - viewHolder.itemView.right
-                if (dX < width / 3)
-                    c.drawColor(Color.GRAY)
-                else
-                    c.drawColor(resources.getColor(R.color.purple_200))
+                val width = viewHolder.itemView.width
+                if (dX < width / 2) {
+                    c.drawColor(resources.getColor(R.color.white))
+                    icon.setTint(resources.getColor(R.color.black))
+                }
+                else {
+                    c.drawColor(resources.getColor(R.color.purple_700))
+                    icon.setTint(resources.getColor(R.color.white))
+                }
+
             }
 
-            @SuppressLint("UseCompatLoadingForDrawables")
-            val trashBinIcon = resources.getDrawable(
-                R.drawable.ic_baseline_favorite_border_24,
-                null
-            )
-
-            val textMargin = resources.getDimension(R.dimen.text_margin)
-                .roundToInt()
-
             if (viewHolder != null) {
-                trashBinIcon.bounds = Rect(
-                    textMargin,
-                    viewHolder.itemView.top + textMargin,
-                    textMargin + trashBinIcon.intrinsicWidth,
-                    viewHolder.itemView.top + trashBinIcon.intrinsicHeight
-                            + textMargin
+                icon.bounds = Rect(
+                    10,
+                    viewHolder.itemView.top + 20,
+                    10 + icon.intrinsicWidth,
+                    viewHolder.itemView.top + icon.intrinsicHeight
                 )
-
-                trashBinIcon.draw(c)
+                icon.draw(c)
             }
 
         }
