@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
-    android:layout_height="200dp"
-    app:layoutDescription="@xml/simple_list_item_scene">
+    android:layout_height="200dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/quoteCard"
@@ -45,4 +44,4 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

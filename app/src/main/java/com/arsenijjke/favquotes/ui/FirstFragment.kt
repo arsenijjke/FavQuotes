@@ -2,11 +2,11 @@ package com.arsenijjke.favquotes.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewAnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +18,6 @@ import com.arsenijjke.favquotes.databinding.FragmentFirstBinding
 import com.arsenijjke.domain.models.QuoteOfTheDay
 import com.arsenijjke.domain.models.QuoteX
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class FirstFragment : Fragment(R.layout.fragment_first) {
@@ -28,10 +27,10 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showQuote(viewModel)
+        showNextQuote(viewModel)
     }
 
-    private fun showQuote(viewModel: MainViewModel) {
+    private fun showNextQuote(viewModel: MainViewModel) {
         viewModel.getQuote().observe(this, {
             setAdapter(it)
             val myHelper = ItemTouchHelper(callback)
@@ -56,7 +55,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     /** Animation */
     private val callback = object : ItemTouchHelper.SimpleCallback(
         0,
-        ItemTouchHelper.RIGHT
+        ItemTouchHelper.RIGHT or ItemTouchHelper.UP
     ) {
 
         override fun onMove(
@@ -73,60 +72,67 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                     )
                 )
             )
-            adapter.notifyItemRemoved(viewHolder.absoluteAdapterPosition)
-            showQuote(viewModel)
+
+
+            when (direction) {
+                ItemTouchHelper.RIGHT -> {
+                    circularRevealCard()
+                    adapter.notifyItemRemoved(viewHolder.absoluteAdapterPosition)
+                    showNextQuote(viewModel)
+                }
+                ItemTouchHelper.UP -> {
+                    toQuoteInfo()
+                }
+            }
         }
 
-        override fun onChildDrawOver(
-            c: Canvas,
+        override fun onMoved(
             recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder?,
-            dX: Float,
-            dY: Float,
-            actionState: Int,
-            isCurrentlyActive: Boolean
+            viewHolder: RecyclerView.ViewHolder,
+            fromPos: Int,
+            target: RecyclerView.ViewHolder,
+            toPos: Int,
+            x: Int,
+            y: Int
         ) {
 
-            @SuppressLint("UseCompatLoadingForDrawables")
-            val icon = resources.getDrawable(
-                R.drawable.ic_baseline_favorite_24,
-                null
-            )
-
-            super.onChildDrawOver(
-                c, recyclerView, viewHolder,
-                dX, dY, actionState, isCurrentlyActive
-            )
-
-            if (viewHolder != null) {
-                c.clipRect(
-                    0f, viewHolder.itemView.top.toFloat(),
-                    dX, viewHolder.itemView.bottom.toFloat()
-                )
-
-                val width = viewHolder.itemView.width
-                if (dX < width / 2) {
-                    c.drawColor(resources.getColor(R.color.white))
-                    icon.setTint(resources.getColor(R.color.black))
-                }
-                else {
-                    c.drawColor(resources.getColor(R.color.purple_700))
-                    icon.setTint(resources.getColor(R.color.white))
-                }
-
-            }
-
-            if (viewHolder != null) {
-                icon.bounds = Rect(
-                    10,
-                    viewHolder.itemView.top + 20,
-                    10 + icon.intrinsicWidth,
-                    viewHolder.itemView.top + icon.intrinsicHeight
-                )
-                icon.draw(c)
-            }
-
+            super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
         }
+
     }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun circularRevealCard() {
+        // get the right and bottom side
+        // lengths of the reveal layout
+
+        binding.recyclerContainer.background = resources.getDrawable(R.color.black)
+
+        val recX: Int = binding.recyclerContainer.left
+        val recY: Int = binding.recyclerContainer.top
+
+        // here the starting radius of the reveal
+        // layout is 0 when it is not visible
+        val startRadius = 0
+
+        // make the end radius should match
+        // the while parent view
+        val endRadius = Math.hypot(
+            binding.recyclerContainer.width.toDouble(),
+            binding.recyclerContainer.bottom.toDouble()
+        ).toInt()
+
+        binding.recyclerContainer.background = resources.getDrawable(R.drawable.simple_background)
+        val recyclerAnim = ViewAnimationUtils.createCircularReveal(
+            binding.recyclerContainer,
+            recX,
+            recY,
+            startRadius.toFloat(),
+            endRadius.toFloat(),
+        )
+        recyclerAnim.start()
+
+    }
+
 
 }
