@@ -14,8 +14,8 @@ class QuoteAdapter(
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         // val name = binding.quoteBody
         // val body = binding.quoteBody
-        val name = view.findViewById<TextView>(R.id.quote_author)
-        val body = view.findViewById<TextView>(R.id.quote_body)
+        //  val name = view.findViewById<TextView>(R.id.quote_author)
+        //  val body = view.findViewById<TextView>(R.id.quote_body)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,8 +25,8 @@ class QuoteAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.name.text = quoteOfTheDay.quote.author
-            holder.body.text = quoteOfTheDay.quote.body
+          //  holder.name.text = quoteOfTheDay.quote.author
+          //  holder.body.text = quoteOfTheDay.quote.body
     }
 
     override fun getItemCount(): Int {
