@@ -7,15 +7,15 @@ import android.widget.TextView
 import com.arsenijjke.domain.models.QuoteOfTheDay
 import androidx.recyclerview.widget.RecyclerView
 
-class QuoteAdapter(
-    private val quoteOfTheDay: QuoteOfTheDay,
-) : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
+class QuoteAdapter : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
+
+    var quotes = ArrayList<QuoteOfTheDay>(1)
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         // val name = binding.quoteBody
         // val body = binding.quoteBody
-        //  val name = view.findViewById<TextView>(R.id.quote_author)
-        //  val body = view.findViewById<TextView>(R.id.quote_body)
+        val name = view.findViewById<TextView>(R.id.quote_author)
+        val body = view.findViewById<TextView>(R.id.quote_body)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,12 +25,12 @@ class QuoteAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-          //  holder.name.text = quoteOfTheDay.quote.author
-          //  holder.body.text = quoteOfTheDay.quote.body
+        holder.name.text = quotes.first().quote.author
+        holder.body.text = quotes.first().quote.body
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return quotes.size
     }
 
 }

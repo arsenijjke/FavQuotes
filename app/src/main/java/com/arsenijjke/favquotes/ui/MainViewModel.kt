@@ -8,6 +8,7 @@ import com.arsenijjke.data.repository.RetrofitRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.arsenijjke.domain.models.QuoteOfTheDay
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,10 +20,10 @@ class MainViewModel @Inject constructor(private val repository: RetrofitReposito
 
         viewModelScope.launch(Dispatchers.Main) {
 
-              val date = repository.getQuoteFromRepository().qotd_date
-              val quote = repository.getQuoteFromRepository().quote
+            val date = repository.getQuoteFromRepository().qotd_date
+            val quote = repository.getQuoteFromRepository().quote
 
-            quoteOfTheDay.postValue(QuoteOfTheDay(date,quote))
+            quoteOfTheDay.postValue(QuoteOfTheDay(date, quote))
         }
         return quoteOfTheDay
     }
