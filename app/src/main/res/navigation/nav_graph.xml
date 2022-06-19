@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.arsenijjke.favquotes.ui.FirstFragment"
+        android:name="com.arsenijjke.favquotes.ui.fragment.QuoteFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 

@@ -1,6 +1,5 @@
-package com.arsenijjke.favquotes.ui
+package com.arsenijjke.favquotes.ui.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -10,22 +9,24 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
+import com.arsenijjke.domain.interfaces.AdapterController
 import com.arsenijjke.favquotes.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentFirstBinding
+import com.arsenijjke.favquotes.ui.viewmodel.QuoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_first.*
 
 @AndroidEntryPoint
-class FirstFragment : Fragment(R.layout.fragment_first) {
+class QuoteFragment : Fragment(R.layout.fragment_first), AdapterController {
 
     private val binding: FragmentFirstBinding by viewBinding()
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: QuoteViewModel by viewModels()
     private val adapter = QuoteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapter()
-        fillRecycler()
+        setupAdapter()
+        fillAdapter()
         swipeLeft()
     }
 
@@ -37,8 +38,8 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                     R.id.offScreenLike -> {
                         motionLayout.progress = 0f
                         motionLayout.setTransition(R.id.start, R.id.detail)
-                        cleanRecycler()
-                        fillRecycler()
+                        cleanAdapterElements()
+                        fillAdapter()
                     }
                 }
             }
@@ -46,16 +47,16 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     }
 
-    private fun setAdapter() {
+    override fun setupAdapter() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
     }
 
-    private fun cleanRecycler() {
+    override fun cleanAdapterElements() {
         adapter.quotes.removeFirst()
     }
 
-    private fun fillRecycler() {
+    override fun fillAdapter() {
         viewModel.getQuote().observe(this, {
             adapter.quotes.add(it)
             adapter.notifyItemInserted(0)
@@ -70,5 +71,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     private fun makeFavourite() {
         //TODO("By swiping right, add quote to favourites")
     }
+
+
 
 }

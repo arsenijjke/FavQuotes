@@ -1,4 +1,4 @@
-package com.arsenijjke.favquotes.ui
+package com.arsenijjke.favquotes.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

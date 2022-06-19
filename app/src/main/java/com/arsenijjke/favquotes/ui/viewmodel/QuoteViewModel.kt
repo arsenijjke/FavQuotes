@@ -1,4 +1,4 @@
-package com.arsenijjke.favquotes.ui
+package com.arsenijjke.favquotes.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,11 +8,10 @@ import com.arsenijjke.data.repository.RetrofitRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.arsenijjke.domain.models.QuoteOfTheDay
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: RetrofitRepository) : ViewModel() {
+class QuoteViewModel @Inject constructor(private val repository: RetrofitRepository) : ViewModel() {
 
     fun getQuote(): MutableLiveData<QuoteOfTheDay> {
 

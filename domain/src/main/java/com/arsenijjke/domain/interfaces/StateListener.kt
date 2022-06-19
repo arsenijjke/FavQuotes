@@ -1,4 +1,4 @@
-package com.arsenijjke.domain
+package com.arsenijjke.domain.interfaces
 
 interface StateListener {
 
