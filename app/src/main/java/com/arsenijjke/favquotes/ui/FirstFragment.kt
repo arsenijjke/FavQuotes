@@ -1,5 +1,6 @@
 package com.arsenijjke.favquotes.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -24,11 +25,11 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
-        fillArray()
-        setAnimation()
+        fillRecycler()
+        swipeLeft()
     }
 
-    private fun setAnimation() {
+    private fun swipeLeft() {
         motionLayout.setTransitionListener(object : TransitionAdapter() {
             override fun onTransitionCompleted(motionLayout: MotionLayout, currentId: Int) {
                 when (currentId) {
@@ -36,13 +37,13 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                     R.id.offScreenLike -> {
                         motionLayout.progress = 0f
                         motionLayout.setTransition(R.id.start, R.id.detail)
-                        adapter.quotes.removeFirst()
-                        adapter.notifyItemRemoved(0)
-                        fillArray()
+                        cleanRecycler()
+                        fillRecycler()
                     }
                 }
             }
         })
+
     }
 
     private fun setAdapter() {
@@ -50,11 +51,16 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         binding.recyclerView.adapter = adapter
     }
 
-    private fun fillArray() {
+    private fun cleanRecycler() {
+        adapter.quotes.removeFirst()
+    }
+
+    private fun fillRecycler() {
         viewModel.getQuote().observe(this, {
             adapter.quotes.add(it)
+            adapter.notifyItemInserted(0)
+            adapter.notifyItemChanged(0)
         })
-        adapter.notifyItemInserted(0)
     }
 
     private fun toQuoteInfo() {
