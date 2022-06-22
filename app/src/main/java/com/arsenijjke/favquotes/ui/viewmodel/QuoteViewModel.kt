@@ -17,7 +17,7 @@ class QuoteViewModel @Inject constructor(private val repository: RetrofitReposit
 
         val quoteOfTheDay = MutableLiveData<QuoteOfTheDay>()
 
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
 
             val date = repository.getQuoteFromRepository().qotd_date
             val quote = repository.getQuoteFromRepository().quote

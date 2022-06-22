@@ -1,4 +1,4 @@
-package com.arsenijjke.favquotes
+package com.arsenijjke.favquotes.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.arsenijjke.domain.models.QuoteOfTheDay
 import androidx.recyclerview.widget.RecyclerView
+import com.arsenijjke.favquotes.R
 
 class QuoteAdapter : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
 
