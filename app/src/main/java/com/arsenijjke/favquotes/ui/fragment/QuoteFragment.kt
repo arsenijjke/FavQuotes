@@ -11,18 +11,18 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
 import com.arsenijjke.domain.interfaces.AdapterController
 import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
-import com.arsenijjke.favquotes.databinding.FragmentFirstBinding
+import com.arsenijjke.favquotes.databinding.FragmentQuoteBinding
 import com.arsenijjke.favquotes.ui.viewmodel.QuoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_first.*
+import kotlinx.android.synthetic.main.fragment_quote.motionLayout
 import kotlinx.coroutines.*
 
 
 @DelicateCoroutinesApi
 @AndroidEntryPoint
-class QuoteFragment : Fragment(R.layout.fragment_first), AdapterController {
+class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
-    private val binding: FragmentFirstBinding by viewBinding()
+    private val binding: FragmentQuoteBinding by viewBinding()
     private val viewModel: QuoteViewModel by viewModels()
     private val adapter = QuoteAdapter()
 
