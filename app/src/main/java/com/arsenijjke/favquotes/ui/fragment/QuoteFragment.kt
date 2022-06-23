@@ -6,6 +6,8 @@ import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
@@ -14,9 +16,8 @@ import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentQuoteBinding
 import com.arsenijjke.favquotes.ui.viewmodel.QuoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_quote.motionLayout
+import kotlinx.android.synthetic.main.fragment_quote.*
 import kotlinx.coroutines.*
-
 
 @DelicateCoroutinesApi
 @AndroidEntryPoint
@@ -24,7 +25,7 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     private val binding: FragmentQuoteBinding by viewBinding()
     private val viewModel: QuoteViewModel by viewModels()
-    private val adapter = QuoteAdapter()
+    private var adapter = QuoteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +35,8 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
             fillAdapter()
             swipeLeft()
         }
+
+        toQuoteInfo()
     }
 
     private fun swipeLeft() {
@@ -52,7 +55,6 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
                 }
             }
         })
-
     }
 
     override fun setupAdapter() {
@@ -73,7 +75,30 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
     }
 
     private fun toQuoteInfo() {
-        //TODO("By swiping up, move to fragment with info about this quote")
+        adapter.setItemCLickListener(object : QuoteAdapter.onItemClickListener {
+
+            override fun onItemCLick() {
+                val extras = FragmentNavigatorExtras(binding.cardOne to "xd")
+
+                findNavController().navigate(
+                    R.id.toInfo,
+                    null,
+                    null,
+                    extras
+                )
+            }
+
+        })
+
+        binding.btn.setOnClickListener {
+            val extras = FragmentNavigatorExtras(binding.cardOne to "receiveCard")
+            findNavController().navigate(
+                R.id.toInfo,
+                null,
+                null,
+                extras
+            )
+        }
     }
 
     private fun makeFavourite() {
