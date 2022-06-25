@@ -36,6 +36,12 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Theme.FavQuotes.ExpandedTextView" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="Base.V24.Theme.FavQuotes.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

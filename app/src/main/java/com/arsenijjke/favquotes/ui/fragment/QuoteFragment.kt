@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
 import com.arsenijjke.domain.interfaces.AdapterController
+import com.arsenijjke.domain.models.QuoteOfTheDay
 import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentQuoteBinding
 import com.arsenijjke.favquotes.ui.viewmodel.QuoteViewModel
@@ -26,6 +27,8 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
     private val binding: FragmentQuoteBinding by viewBinding()
     private val viewModel: QuoteViewModel by viewModels()
     private var adapter = QuoteAdapter()
+
+    private var tempArr: ArrayList<QuoteOfTheDay> = adapter.quotes
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,23 +75,10 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
             adapter.notifyItemInserted(0)
             adapter.notifyItemChanged(0)
         })
+
     }
 
     private fun toQuoteInfo() {
-        adapter.setItemCLickListener(object : QuoteAdapter.onItemClickListener {
-
-            override fun onItemCLick() {
-                val extras = FragmentNavigatorExtras(binding.cardOne to "xd")
-
-                findNavController().navigate(
-                    R.id.toInfo,
-                    null,
-                    null,
-                    extras
-                )
-            }
-
-        })
 
         binding.btn.setOnClickListener {
             val extras = FragmentNavigatorExtras(binding.cardOne to "receiveCard")
@@ -99,10 +89,19 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
                 extras
             )
         }
+
+        while (adapter.quotes.size > 0) {
+            adapter.quotes.removeLast()
+        }
     }
 
     private fun makeFavourite() {
         //TODO("By swiping right, add quote to favourites")
     }
+
+    /** As data refreshes after moving to QuoteInfo
+     * on monday I will make function that sends data to shared transition
+     * And after moving back it will represents the quote you read
+     */
 
 }

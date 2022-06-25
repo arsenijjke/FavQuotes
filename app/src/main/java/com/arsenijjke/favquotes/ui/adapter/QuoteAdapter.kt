@@ -10,35 +10,20 @@ import com.arsenijjke.favquotes.R
 
 class QuoteAdapter() : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
 
-    interface onItemClickListener {
-        fun onItemCLick()
-    }
-
-    private lateinit var clicker: onItemClickListener
-
-    fun setItemCLickListener(listener: onItemClickListener) {
-        clicker = listener
-    }
-
     var quotes = ArrayList<QuoteOfTheDay>(1)
 
-    inner class ViewHolder(view: View, listener: onItemClickListener): RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         // val name = binding.quoteBody
         // val body = binding.quoteBody
         val name = view.findViewById<TextView>(R.id.quote_author)
         val body = view.findViewById<TextView>(R.id.quote_body)
 
-        init {
-            itemView.setOnClickListener {
-                listener.onItemCLick()
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val item = LayoutInflater.from(parent.context)
             .inflate(R.layout.simple_list_item,parent,false)
-        return ViewHolder(item,clicker)
+        return ViewHolder(item)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -50,8 +35,6 @@ class QuoteAdapter() : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return quotes.size
     }
-
-
 
 }
 
