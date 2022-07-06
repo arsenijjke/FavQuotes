@@ -78,13 +78,21 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     }
 
-    private fun toQuoteInfo() {
+    private fun sendQuoteToInfo(): Bundle {
+        val bundle: Bundle = Bundle()
+        bundle.putString("body",adapter.quotes[0].quote.body)
+        bundle.putString("author",adapter.quotes[0].quote.author)
+        bundle.putInt("likes",adapter.quotes[0].quote.upvotes_count)
+        bundle.putInt("dislikes",adapter.quotes[0].quote.downvotes_count)
+        return bundle
+    }
 
+    private fun toQuoteInfo() {
         binding.btn.setOnClickListener {
             val extras = FragmentNavigatorExtras(binding.cardOne to "receiveCard")
             findNavController().navigate(
                 R.id.toInfo,
-                null,
+                sendQuoteToInfo(),
                 null,
                 extras
             )
