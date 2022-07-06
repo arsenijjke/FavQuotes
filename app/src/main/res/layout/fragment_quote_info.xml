@@ -40,7 +40,7 @@
                 android:id="@+id/view"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/purple_500"
 
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,11 +52,11 @@
                 style="@style/Theme.FavQuotes.ExpandedTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@id/view" />
 
             <View
                 android:id="@+id/view2"
@@ -74,42 +74,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="60dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/raleway_regular"
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view2"/>
+                app:layout_constraintBottom_toTopOf="@id/dislike"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/dislike"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="200dp"
                 android:src="@drawable/ic_baseline_dislike"
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dislike_counter" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/like_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/raleway_regular"
 
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view2"/>
+                app:layout_constraintBottom_toTopOf="@+id/like"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/like"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="200dp"
                 android:src="@drawable/ic_baseline_like"
 
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dislike_counter" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

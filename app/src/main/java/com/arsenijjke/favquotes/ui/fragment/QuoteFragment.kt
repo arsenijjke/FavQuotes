@@ -28,8 +28,6 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
     private val viewModel: QuoteViewModel by viewModels()
     private var adapter = QuoteAdapter()
 
-    private var tempArr: ArrayList<QuoteOfTheDay> = adapter.quotes
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -80,10 +78,10 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     private fun sendQuoteToInfo(): Bundle {
         val bundle: Bundle = Bundle()
-        bundle.putString("body",adapter.quotes[0].quote.body)
-        bundle.putString("author",adapter.quotes[0].quote.author)
-        bundle.putInt("likes",adapter.quotes[0].quote.upvotes_count)
-        bundle.putInt("dislikes",adapter.quotes[0].quote.downvotes_count)
+        bundle.putString("body", adapter.quotes[0].quote.body)
+        bundle.putString("author", adapter.quotes[0].quote.author)
+        bundle.putInt("likes", adapter.quotes[0].quote.upvotes_count)
+        bundle.putInt("dislikes", adapter.quotes[0].quote.downvotes_count)
         return bundle
     }
 
