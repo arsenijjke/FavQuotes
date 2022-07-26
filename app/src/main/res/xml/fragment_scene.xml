@@ -94,6 +94,14 @@
                 android:scaleY="0.90" />
 
         </Constraint>
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_editor_absoluteY="39dp"
+            android:id="@+id/progressBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </ConstraintSet>
 

@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
 import com.arsenijjke.domain.interfaces.AdapterController
-import com.arsenijjke.domain.models.QuoteOfTheDay
+import android.animation.TimeInterpolator
+import android.util.Log
+import android.view.animation.LinearInterpolator
+import androidx.core.view.ViewCompat.setAlpha
 import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentQuoteBinding
 import com.arsenijjke.favquotes.ui.viewmodel.QuoteViewModel
@@ -48,7 +51,13 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
                     R.id.offScreenLike -> {
                         motionLayout.progress = 0f
                         motionLayout.setTransition(R.id.start, R.id.detail)
+
                         GlobalScope.launch(Dispatchers.Main) {
+                            binding.progressBar.animate().apply {
+                                progressBar.alpha = 1f
+                                duration = 1300
+                                interpolator = LinearInterpolator()
+                            }.start()
                             cleanAdapterElements()
                             fillAdapter()
                         }
@@ -68,16 +77,15 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
     }
 
     override suspend fun fillAdapter() {
-        viewModel.getQuote().observe(this, {
+        viewModel.getQuote().observe(viewLifecycleOwner) {
             adapter.quotes.add(it)
             adapter.notifyItemInserted(0)
             adapter.notifyItemChanged(0)
-        })
-
+        }
     }
 
     private fun sendQuoteToInfo(): Bundle {
-        val bundle: Bundle = Bundle()
+        val bundle = Bundle()
         bundle.putString("body", adapter.quotes[0].quote.body)
         bundle.putString("author", adapter.quotes[0].quote.author)
         bundle.putInt("likes", adapter.quotes[0].quote.upvotes_count)
@@ -103,6 +111,11 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     private fun makeFavourite() {
         //TODO("By swiping right, add quote to favourites")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("TAG","Closed")
     }
 
     /** As data refreshes after moving to QuoteInfo
