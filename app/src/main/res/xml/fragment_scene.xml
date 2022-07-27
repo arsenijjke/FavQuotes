@@ -30,7 +30,7 @@
         app:autoTransition="animateToEnd"
         app:constraintSetEnd="@+id/offScreenUnlike"
         app:constraintSetStart="@+id/unlike"
-        app:duration="150" />
+        app:duration="100" />
 
     <Transition
         android:id="@+id/startToRight3"

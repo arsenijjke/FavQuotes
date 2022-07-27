@@ -1,5 +1,7 @@
 package com.arsenijjke.favquotes.ui.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,10 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
 import com.arsenijjke.domain.interfaces.AdapterController
-import android.animation.TimeInterpolator
-import android.util.Log
-import android.view.animation.LinearInterpolator
-import androidx.core.view.ViewCompat.setAlpha
+import android.view.animation.AnimationUtils
+import androidx.lifecycle.lifecycleScope
 import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentQuoteBinding
 import com.arsenijjke.favquotes.ui.viewmodel.QuoteViewModel
@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_quote.*
 import kotlinx.coroutines.*
 
-@DelicateCoroutinesApi
 @AndroidEntryPoint
 class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
@@ -33,13 +32,11 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch {
             setupAdapter()
             fillAdapter()
             swipeLeft()
         }
-
         toQuoteInfo()
     }
 
@@ -51,15 +48,22 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
                     R.id.offScreenLike -> {
                         motionLayout.progress = 0f
                         motionLayout.setTransition(R.id.start, R.id.detail)
-
-                        GlobalScope.launch(Dispatchers.Main) {
-                            binding.progressBar.animate().apply {
-                                progressBar.alpha = 1f
-                                duration = 1300
-                                interpolator = LinearInterpolator()
-                            }.start()
+                        lifecycleScope.launch(Dispatchers.Main) {
                             cleanAdapterElements()
+                            progressBar.animate()
+                                .alpha(1f)
+                            val anim_in = AnimationUtils.loadAnimation(
+                                context,
+                                R.anim.loadingbar_slide_in
+                            )
+                            binding.test.startAnimation(anim_in)
                             fillAdapter()
+
+                            val anim_out = AnimationUtils.loadAnimation(
+                                context,
+                                R.anim.loadingbar_slide_out
+                            )
+                            binding.test.startAnimation(anim_out)
                         }
                     }
                 }
@@ -86,10 +90,10 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     private fun sendQuoteToInfo(): Bundle {
         val bundle = Bundle()
-        bundle.putString("body", adapter.quotes[0].quote.body)
-        bundle.putString("author", adapter.quotes[0].quote.author)
-        bundle.putInt("likes", adapter.quotes[0].quote.upvotes_count)
-        bundle.putInt("dislikes", adapter.quotes[0].quote.downvotes_count)
+        bundle.putString("body", adapter.quotes.first().quote.body)
+        bundle.putString("author", adapter.quotes.first().quote.author)
+        bundle.putInt("likes", adapter.quotes.first().quote.upvotes_count)
+        bundle.putInt("dislikes", adapter.quotes.first().quote.downvotes_count)
         return bundle
     }
 
@@ -115,12 +119,6 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("TAG","Closed")
     }
-
-    /** As data refreshes after moving to QuoteInfo
-     * on monday I will make function that sends data to shared transition
-     * And after moving back it will represents the quote you read
-     */
 
 }

@@ -14,6 +14,6 @@
     <color name="quote_canvas_night">#333</color>
     <color name="quote_canvas_light">#FFFFFF</color>
 
-    <color name="grad_end">#f80759</color>
-    <color name="grad_start">#bc4e9c</color>
+    <color name="grad_end">#FF3700B3</color>
+    <color name="grad_start">#FFBB86FC</color>
 </resources>
