@@ -1,7 +1,5 @@
 package com.arsenijjke.favquotes.ui.fragment
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
 import com.arsenijjke.domain.interfaces.AdapterController
-import android.view.animation.AnimationUtils
 import androidx.lifecycle.lifecycleScope
 import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentQuoteBinding
@@ -32,6 +29,7 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         lifecycleScope.launch {
             setupAdapter()
             fillAdapter()
@@ -50,20 +48,7 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
                         motionLayout.setTransition(R.id.start, R.id.detail)
                         lifecycleScope.launch(Dispatchers.Main) {
                             cleanAdapterElements()
-                            progressBar.animate()
-                                .alpha(1f)
-                            val anim_in = AnimationUtils.loadAnimation(
-                                context,
-                                R.anim.loadingbar_slide_in
-                            )
-                            binding.test.startAnimation(anim_in)
                             fillAdapter()
-
-                            val anim_out = AnimationUtils.loadAnimation(
-                                context,
-                                R.anim.loadingbar_slide_out
-                            )
-                            binding.test.startAnimation(anim_out)
                         }
                     }
                 }
