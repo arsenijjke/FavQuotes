@@ -27,8 +27,4 @@ class QuoteViewModel @Inject constructor(private val repository: RetrofitReposit
         return quoteOfTheDay
     }
 
-    fun getFavouriteQuotes() {
-        repository.getAllQuotes()
-    }
-
 }

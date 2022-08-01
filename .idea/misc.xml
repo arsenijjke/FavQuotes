@@ -25,6 +25,7 @@
         <entry key="..\:/Users/arsen/AndroidStudioProjects/FavQuotes/app/src/main/res/layout/fragment_quote_scene_7.xml" value="0.259375" />
         <entry key="..\:/Users/arsen/AndroidStudioProjects/FavQuotes/app/src/main/res/layout/fragment_quote_scene_8.xml" value="0.259375" />
         <entry key="..\:/Users/arsen/AndroidStudioProjects/FavQuotes/app/src/main/res/layout/fragment_quote_scene_9.xml" value="0.259375" />
+        <entry key="..\:/Users/arsen/AndroidStudioProjects/FavQuotes/app/src/main/res/layout/fragment_saved_quotes.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/arsen/AndroidStudioProjects/FavQuotes/app/src/main/res/layout/main_activity.xml" value="0.14175724637681159" />
         <entry key="..\:/Users/arsen/AndroidStudioProjects/FavQuotes/app/src/main/res/layout/main_fragment.xml" value="0.16802536231884058" />
         <entry key="..\:/Users/arsen/AndroidStudioProjects/FavQuotes/app/src/main/res/layout/simple_list_item.xml" value="0.4" />
@@ -41,7 +42,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="14" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="14" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

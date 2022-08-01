@@ -30,7 +30,7 @@
         app:autoTransition="animateToEnd"
         app:constraintSetEnd="@+id/offScreenUnlike"
         app:constraintSetStart="@+id/unlike"
-        app:duration="200" />
+        app:duration="400" />
 
     <Transition
         android:id="@+id/startToRight3"
@@ -60,7 +60,7 @@
         app:autoTransition="animateToEnd"
         app:constraintSetEnd="@+id/offScreenLike"
         app:constraintSetStart="@+id/like"
-        app:duration="200" />
+        app:duration="400" />
 
     <ConstraintSet android:id="@+id/start">
 
@@ -95,38 +95,9 @@
 
         </Constraint>
 
-        <Constraint android:id="@id/progressBar">
-
-            <Layout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/materialToolbar"/>
-
-        </Constraint>
-
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/unlike">
-
-        <Constraint
-            android:id="@id/cardOne"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="200dp"
-            android:layout_marginBottom="80dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.9" />
-
-        <Constraint android:id="@id/cardTwo">
-            <Transform
-                android:scaleX="1"
-                android:scaleY="1" />
-
-        </Constraint>
 
         <Constraint android:id="@id/progressBar">
 
@@ -143,10 +114,47 @@
 
         </Constraint>
 
+        <Constraint android:id="@id/cardOne">
+
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="500dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="200dp"
+                android:layout_marginBottom="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.9" />
+
+        </Constraint>
+
+        <Constraint android:id="@id/cardTwo">
+
+            <Transform
+                android:scaleX="0.8"
+                android:scaleY="0.8" />
+
+        </Constraint>
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/offScreenUnlike"
         app:deriveConstraintsFrom="@id/unlike">
+
+        <Constraint android:id="@id/progressBar">
+
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialToolbar"/>
+
+            <PropertySet android:alpha="0" />
+
+            <Transform android:translationY="-80dp" />
+
+        </Constraint>
 
         <Constraint android:id="@id/cardOne">
 
@@ -170,46 +178,9 @@
 
         </Constraint>
 
-        <Constraint android:id="@id/progressBar">
-
-            <Layout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/materialToolbar"/>
-
-            <PropertySet android:alpha="0" />
-
-            <Transform android:translationY="-80dp" />
-
-        </Constraint>
-
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/like">
-
-        <Constraint android:id="@id/cardOne">
-
-            <Layout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="200dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginBottom="80dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintWidth_percent="0.9" />
-
-        </Constraint>
-
-        <Constraint android:id="@id/cardTwo">
-
-            <Transform
-                android:scaleX="1"
-                android:scaleY="1" />
-
-        </Constraint>
 
         <Constraint android:id="@id/progressBar">
 
@@ -222,8 +193,29 @@
 
             <PropertySet android:alpha="1" />
 
+            <Transform android:translationY="80dp" />
+
+        </Constraint>
+
+        <Constraint android:id="@id/cardOne">
+
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="500dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.9" />
+
+        </Constraint>
+
+        <Constraint android:id="@id/cardTwo">
+
             <Transform
-                android:translationY="80dp" />
+                android:scaleX="0.8"
+                android:scaleY="0.8" />
 
         </Constraint>
 
@@ -231,6 +223,22 @@
 
     <ConstraintSet android:id="@+id/offScreenLike"
         app:deriveConstraintsFrom="@id/like">
+
+        <Constraint android:id="@id/progressBar">
+
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialToolbar"/>
+
+            <PropertySet android:alpha="0" />
+
+            <Transform
+                android:translationY="-80dp" />
+
+        </Constraint>
 
         <Constraint android:id="@id/cardOne">
 
@@ -250,22 +258,6 @@
             <Transform
                 android:scaleX="1"
                 android:scaleY="1" />
-
-        </Constraint>
-
-        <Constraint android:id="@id/progressBar">
-
-            <Layout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/materialToolbar"/>
-
-            <PropertySet android:alpha="0" />
-
-            <Transform
-                android:translationY="-80dp" />
 
         </Constraint>
 

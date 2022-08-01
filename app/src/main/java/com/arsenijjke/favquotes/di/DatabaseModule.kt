@@ -2,7 +2,7 @@ package com.arsenijjke.favquotes.di
 
 import android.content.Context
 import com.arsenijjke.data.db.QuotesDatabase
-import com.arsenijjke.data.db.dao.QuotesDao
+import com.arsenijjke.data.db.dao.QuotesDaoService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDao(db: QuotesDatabase): QuotesDao {
+    fun provideDao(db: QuotesDatabase): QuotesDaoService {
         return db.getDao()
     }
 }

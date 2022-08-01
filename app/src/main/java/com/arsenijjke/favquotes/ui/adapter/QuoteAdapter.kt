@@ -8,7 +8,7 @@ import com.arsenijjke.domain.models.QuoteOfTheDay
 import androidx.recyclerview.widget.RecyclerView
 import com.arsenijjke.favquotes.R
 
-class QuoteAdapter() : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
+class QuoteAdapter : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
 
     var quotes = ArrayList<QuoteOfTheDay>(1)
 

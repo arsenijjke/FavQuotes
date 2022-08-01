@@ -8,7 +8,7 @@ import androidx.room.Query
 import com.arsenijjke.data.db.models.FavouriteQuote
 
 @Dao
-interface QuotesDao {
+interface QuotesDaoService {
 
     @Query("SELECT * FROM Quotes_DB")
     fun getAllQuotes(): LiveData<List<FavouriteQuote>>

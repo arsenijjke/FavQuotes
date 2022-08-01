@@ -49,11 +49,14 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
                         lifecycleScope.launch(Dispatchers.Main) {
                             cleanAdapterElements()
                             fillAdapter()
+                            binding.btn.isEnabled = false
+                            binding.cardOne.isEnabled = false
                         }
                     }
                 }
             }
         })
+        binding.btn.isEnabled = true
     }
 
     override fun setupAdapter() {
@@ -67,6 +70,8 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     override suspend fun fillAdapter() {
         viewModel.getQuote().observe(viewLifecycleOwner) {
+            binding.btn.isEnabled = true
+            binding.cardOne.isEnabled = true
             adapter.quotes.add(it)
             adapter.notifyItemInserted(0)
             adapter.notifyItemChanged(0)
@@ -100,10 +105,6 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     private fun makeFavourite() {
         //TODO("By swiping right, add quote to favourites")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 }
