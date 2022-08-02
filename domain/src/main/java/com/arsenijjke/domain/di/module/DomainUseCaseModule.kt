@@ -1,4 +1,4 @@
-package com.arsenijjke.domain.di
+package com.arsenijjke.domain.di.module
 
 import com.arsenijjke.domain.repository.QuoteRemoteRepository
 import com.arsenijjke.domain.repository.QuoteLocalRepository
