@@ -1,20 +1,18 @@
 package com.arsenijjke.data.db.dao
 
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.arsenijjke.data.db.models.FavouriteQuote
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
+import com.arsenijjke.data.db.models.QuoteEntity
 
 @Dao
 interface QuotesDaoService {
 
+    @Transaction
     @Query("SELECT * FROM Quotes_DB")
-    fun getAllQuotes(): LiveData<List<FavouriteQuote>>
+    fun getAllQuotes(): Flow<List<QuoteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addQuote(quote: FavouriteQuote)
+    fun insertQuote(quote: QuoteEntity)
 
     @Query("DELETE FROM Quotes_DB")
     fun deleteQuotes()

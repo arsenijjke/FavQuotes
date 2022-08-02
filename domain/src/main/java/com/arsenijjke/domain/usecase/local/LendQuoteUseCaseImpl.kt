@@ -10,6 +10,7 @@ interface LendQuoteUseCase : BaseUseCase<List<QuoteOfTheDay>>
 class LendQuoteUseCaseImpl(
     private val quoteLocalRepository: QuoteLocalRepository
 ) : LendQuoteUseCase {
+
     override suspend fun invoke(): Flow<List<QuoteOfTheDay>> =
         quoteLocalRepository.lendQuotes()
 

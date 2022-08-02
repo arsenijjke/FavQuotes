@@ -5,5 +5,7 @@ import com.arsenijjke.domain.models.QuoteOfTheDay
 
 interface QuoteLocalRepository {
 
-    fun lendQuotes(): Flow<List<QuoteOfTheDay>>
+    suspend fun lendQuotes(): Flow<List<QuoteOfTheDay>>
+
+    suspend fun addQuote(quote: QuoteOfTheDay)
 }

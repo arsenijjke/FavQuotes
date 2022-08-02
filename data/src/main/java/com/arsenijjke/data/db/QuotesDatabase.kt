@@ -2,15 +2,15 @@ package com.arsenijjke.data.db
 
 import android.content.Context
 import androidx.room.*
-import com.arsenijjke.data.db.dao.QuotesDao
-import com.arsenijjke.data.db.models.FavouriteQuote
+import com.arsenijjke.data.db.dao.QuotesDaoService
+import com.arsenijjke.data.db.models.QuoteEntity
 import com.arsenijjke.data.db.models.TypeConverterQuote
 
-@Database(entities = [FavouriteQuote::class], version = 1, exportSchema = false)
+@Database(entities = [QuoteEntity::class], version = 1, exportSchema = false)
 @TypeConverters(TypeConverterQuote::class)
 abstract class QuotesDatabase : RoomDatabase() {
 
-    abstract fun getDao(): QuotesDao
+    abstract fun getDao(): QuotesDaoService
 
     companion object {
         private var DB_INSTANCE: QuotesDatabase? = null

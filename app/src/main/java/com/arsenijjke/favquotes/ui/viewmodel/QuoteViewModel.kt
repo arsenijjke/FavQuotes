@@ -4,14 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.arsenijjke.data.repository.RetrofitRepository
+import com.arsenijjke.data.repository.RemoteRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.arsenijjke.domain.models.QuoteOfTheDay
 import javax.inject.Inject
 
 @HiltViewModel
-class QuoteViewModel @Inject constructor(private val repository: RetrofitRepository) : ViewModel() {
+class QuoteViewModel @Inject constructor(private val repository: RemoteRepositoryImpl) : ViewModel() {
 
     fun getQuote(): MutableLiveData<QuoteOfTheDay> {
 
