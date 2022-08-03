@@ -1,9 +1,9 @@
 package com.arsenijjke.domain.models
 
 data class QuoteX(
-    val author: String,
+    var author: String,
     val author_permalink: String = "",
-    val body: String,
+    var body: String,
     val dialogue: Boolean = false,
     val downvotes_count: Int = 0,
     val favorite: Boolean = false,

@@ -1,5 +1,6 @@
 package com.arsenijjke.favquotes.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
-import com.arsenijjke.domain.interfaces.AdapterController
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
@@ -27,17 +27,18 @@ class QuoteFragment : Fragment(R.layout.fragment_quote) {
 
     private val binding: FragmentQuoteBinding by viewBinding()
     private val viewModel: QuoteViewModel by viewModels()
-    //  private var adapter = QuoteAdapter()
+    private var adapter = QuoteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            fillAdapter()
-            swipeLeft()
-        }
+        setupAdapter()
+        fillAdapter()
+        swipeLeft()
+        toQuoteInfo()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun swipeLeft() {
         motionLayout.setTransitionListener(object : TransitionAdapter() {
             override fun onTransitionCompleted(motionLayout: MotionLayout, currentId: Int) {
@@ -46,11 +47,10 @@ class QuoteFragment : Fragment(R.layout.fragment_quote) {
                     R.id.offScreenLike -> {
                         motionLayout.progress = 0f
                         motionLayout.setTransition(R.id.start, R.id.detail)
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            fillAdapter()
-                            binding.btn.isEnabled = false
-                            binding.cardOne.isEnabled = false
-                        }
+                        adapter.notifyDataSetChanged()
+                        fillAdapter()
+                        binding.btn.isEnabled = false
+                        binding.cardOne.isEnabled = false
                     }
                 }
             }
@@ -58,51 +58,54 @@ class QuoteFragment : Fragment(R.layout.fragment_quote) {
         binding.btn.isEnabled = true
     }
 
-    suspend fun fillAdapter() {
+    fun fillAdapter() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.getQuote()
-            viewModel.viewModelScope.launch {
-                viewModel.quoteOfTheDay.collect { data ->
-                    binding.btn.isEnabled = true
-                    binding.cardOne.isEnabled = true
-                    binding.quoteBody.text = data.quote.body
-                    binding.quoteAuthor.text = data.quote.author
-                    // adapter.quotes.add(data)
-                    // adapter.notifyItemInserted(0)
-                    // adapter.notifyItemChanged(0)
-                    // cleanAdapterElements()
-                }
+            viewModel.quoteOfTheDay.collect { data ->
+                binding.btn.isEnabled = true
+                binding.cardOne.isEnabled = true
+                adapter.quotes[0].quote.author = data.quote.author
+                adapter.quotes[0].quote.body = data.quote.body
             }
         }
     }
 
-    // private fun sendQuoteToInfo(): Bundle {
-    //     val bundle = Bundle()
-    //     bundle.putString("body", adapter.quotes.first().quote.body)
-    //     bundle.putString("author", adapter.quotes.first().quote.author)
-    //     bundle.putInt("likes", adapter.quotes.first().quote.upvotes_count)
-    //     bundle.putInt("dislikes", adapter.quotes.first().quote.downvotes_count)
-    //     return bundle
-    // }
+    private fun setupAdapter() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
+    }
 
-    // private fun toQuoteInfo() {
-    //     binding.btn.setOnClickListener {
-    //         val extras = FragmentNavigatorExtras(binding.cardOne to "receiveCard")
-    //         findNavController().navigate(
-    //             R.id.toInfo,
-    //            // sendQuoteToInfo(),
-    //             null,
-    //             extras
-    //         )
-    //     }
-//
-    //     while (adapter.quotes.size > 0) {
-    //         adapter.quotes.removeLast()
-    //     }
-    // }
+    private fun cleanAdapter() {
+        while (adapter.quotes.size > 2) {
+            adapter.quotes.removeFirst()
+        }
+    }
+
+    private fun sendQuoteToInfo(): Bundle {
+        val bundle = Bundle()
+        bundle.putString("body", adapter.quotes.first().quote.body)
+        bundle.putString("author", adapter.quotes.first().quote.author)
+        bundle.putInt("likes", adapter.quotes.first().quote.upvotes_count)
+        bundle.putInt("dislikes", adapter.quotes.first().quote.downvotes_count)
+        return bundle
+    }
+
+    private fun toQuoteInfo() {
+        binding.btn.setOnClickListener {
+            val extras = FragmentNavigatorExtras(binding.cardOne to "receiveCard")
+            findNavController().navigate(
+                R.id.toInfo,
+                sendQuoteToInfo(),
+                null,
+                extras
+            )
+        }
+        cleanAdapter()
+    }
 
     private fun makeFavourite() {
         //TODO("By swiping right, add quote to favourites")
     }
 
 }
+

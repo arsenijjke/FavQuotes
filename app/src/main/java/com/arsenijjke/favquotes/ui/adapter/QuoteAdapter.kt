@@ -6,11 +6,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.arsenijjke.domain.models.QuoteOfTheDay
 import androidx.recyclerview.widget.RecyclerView
+import com.arsenijjke.domain.models.QuoteX
 import com.arsenijjke.favquotes.R
 
 class QuoteAdapter : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
 
-    var quotes = ArrayList<QuoteOfTheDay>(1)
+    var quotes = mutableListOf(
+        QuoteOfTheDay(
+            "",
+            QuoteX("arsenijjke","","Welcome to FavQuotes")
+        )
+    )
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         // val name = binding.quoteBody

@@ -17,7 +17,7 @@
         <KeyFrameSet>
 
             <KeyPosition
-                app:framePosition="50"
+                app:framePosition="60"
                 app:keyPositionType="pathRelative"
                 app:motionTarget="@id/cardOne"
                 app:percentY="0.1" />
@@ -30,7 +30,7 @@
         app:autoTransition="animateToEnd"
         app:constraintSetEnd="@+id/offScreenUnlike"
         app:constraintSetStart="@+id/unlike"
-        app:duration="400" />
+        app:duration="1000" />
 
     <Transition
         android:id="@+id/startToRight3"
@@ -60,7 +60,7 @@
         app:autoTransition="animateToEnd"
         app:constraintSetEnd="@+id/offScreenLike"
         app:constraintSetStart="@+id/like"
-        app:duration="400" />
+        app:duration="1000" />
 
     <ConstraintSet android:id="@+id/start">
 
