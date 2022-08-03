@@ -5,5 +5,6 @@ import com.arsenijjke.data.db.models.QuoteEntity
 
 fun QuoteOfTheDay.toEntity() = QuoteEntity(
     id = 0,
-    quote = QuoteOfTheDay(qotd_date, quote)
+    author = this.quote.author,
+    body = this.quote.body
 )

@@ -1,30 +1,34 @@
 package com.arsenijjke.favquotes.ui.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.arsenijjke.data.repository.RemoteRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.*
 import com.arsenijjke.domain.models.QuoteOfTheDay
+import com.arsenijjke.domain.models.QuoteX
 import javax.inject.Inject
 
 @HiltViewModel
-class QuoteViewModel @Inject constructor(private val repository: RemoteRepositoryImpl) : ViewModel() {
+class QuoteViewModel @Inject constructor(
+    private val repository: RemoteRepositoryImpl
+    ) : ViewModel() {
 
-    fun getQuote(): MutableLiveData<QuoteOfTheDay> {
+    init {
+        getQuote()
+    }
 
-        val quoteOfTheDay = MutableLiveData<QuoteOfTheDay>()
+    var _quoteOfTheDay = MutableStateFlow(QuoteOfTheDay("", QuoteX("","","")))
+    val quoteOfTheDay: StateFlow<QuoteOfTheDay> get() = _quoteOfTheDay
 
+    fun getQuote() {
         viewModelScope.launch(Dispatchers.IO) {
-
-            val date = repository.getQuoteFromRepository().qotd_date
-            val quote = repository.getQuoteFromRepository().quote
-
-            quoteOfTheDay.postValue(QuoteOfTheDay(date, quote))
+            repository.fetchQuote().collect { it ->
+                _quoteOfTheDay.value = it
+            }
         }
-        return quoteOfTheDay
     }
 
 }

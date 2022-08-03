@@ -38,14 +38,15 @@ dependencies {
     implementation 'javax.inject:javax.inject:1'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
-    implementation 'androidx.room:room-common:2.4.3'
-    api "androidx.room:room-runtime:2.4.3"
-    def roomVersion = "2.4.2"
-
-    implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
     // To use Kotlin annotation processing tool (kapt)
+
+    def roomVersion = "2.4.3"
+    api "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-common:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
 
 

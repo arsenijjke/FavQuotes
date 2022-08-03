@@ -12,6 +12,9 @@ data class QuoteEntity(
     @ColumnInfo(name = "id")
     val id: Int = 0,
 
-    @ColumnInfo(name = "quote")
-    val quote: QuoteOfTheDay
+    @ColumnInfo(name = "author")
+    val author: String,
+
+    @ColumnInfo(name = "body")
+    val body: String
 )

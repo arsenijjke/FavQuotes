@@ -8,18 +8,18 @@ import com.arsenijjke.data.repository.RemoteRepositoryImpl
 import com.arsenijjke.data.repository.LocalRepositoryImpl
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
+@InstallIn(SingletonComponent::class)
 @Module
 class DomainModule {
 
-    @Singleton
     @Provides
     fun provideGetQuoteUseCase(remoteRepository: RemoteRepositoryImpl): GetQuoteUseCase {
         return GetQuoteUseCaseImpl(remoteRepository)
     }
 
-    @Singleton
     @Provides
     fun provideLendQuoteUseCase(localRepository: LocalRepositoryImpl): LendQuoteUseCase {
         return LendQuoteUseCaseImpl(localRepository)

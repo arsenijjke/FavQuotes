@@ -4,6 +4,7 @@ import com.arsenijjke.data.db.dao.QuotesDaoService
 import com.arsenijjke.domain.repository.QuoteLocalRepository
 import com.arsenijjke.domain.models.QuoteOfTheDay
 import com.arsenijjke.data.db.mapper.toEntity
+import com.arsenijjke.domain.models.QuoteX
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
@@ -18,7 +19,11 @@ class LocalRepositoryImpl @Inject constructor(
         val list = daoService.getAllQuotes().toList().first()
         val glist = mutableListOf<QuoteOfTheDay>()
         for(i in list.indices) {
-            glist[i] = QuoteOfTheDay(list.first().quote.qotd_date,list.first().quote.quote)
+            glist[i] = QuoteOfTheDay("", QuoteX(
+                author = list.first().author,
+                author_permalink = "",
+                body = list.first().body)
+            )
         }
         return flowOf(glist)
     }

@@ -3,18 +3,21 @@ package com.arsenijjke.data.db.models
 import androidx.room.TypeConverter
 import com.arsenijjke.domain.models.Quote
 
+/**
+ * Used only to complie QuotesDatabase
+ */
 class TypeConverterQuote {
     @TypeConverter
     fun stringToQuote(data: String?): Quote {
-        var author = ""
-        var body = ""
-        var id = 0
+        val author = ""
+        val body = ""
+        val id = 0
         val list = mutableListOf<Any>(author, body, id)
 
         if (data != null) {
             var i = 0
             var j = 0
-            var temp: String = ""
+            var temp = ""
 
             while (data[i] != data.last()) {
                 temp += data[i]

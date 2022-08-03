@@ -9,7 +9,7 @@ class SavedQuotesViewModel @Inject constructor(private val repository: LocalRepo
 
     val savedQuote = MutableLiveData<QuoteOfTheDay>()
 
-    fun getFavouriteQuotes() {
-        repository.getAllQuotes()
+    suspend fun getFavouriteQuotes() {
+        repository.lendQuotes()
     }
 }

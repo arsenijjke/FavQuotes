@@ -4,6 +4,7 @@ import com.arsenijjke.data.network.QuoteService
 import com.arsenijjke.domain.models.QuoteOfTheDay
 import com.arsenijjke.domain.repository.QuoteRemoteRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 
@@ -12,7 +13,7 @@ class RemoteRepositoryImpl @Inject constructor(
 ) : QuoteRemoteRepository {
 
     override suspend fun fetchQuote(): Flow<QuoteOfTheDay> {
-        return quoteService.getQuoteOfTheDay()
+        return flowOf(quoteService.getQuoteOfTheDay())
     }
 
 
