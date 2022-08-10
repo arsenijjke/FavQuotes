@@ -9,7 +9,7 @@ import com.arsenijjke.domain.models.QuoteX
 import javax.inject.Inject
 
 @HiltViewModel
-class QuoteViewModel @Inject constructor(
+class RemoteViewModel @Inject constructor(
     private val repository: RemoteRepositoryImpl
 ) : ViewModel() {
 
