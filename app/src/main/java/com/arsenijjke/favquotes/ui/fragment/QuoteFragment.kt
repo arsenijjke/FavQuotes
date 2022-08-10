@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.fragment.app.viewModels
@@ -14,33 +13,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.favquotes.R
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.arsenijjke.favquotes.ui.adapter.QuoteAdapter
 import com.arsenijjke.favquotes.databinding.FragmentQuoteBinding
-import com.arsenijjke.favquotes.ui.viewmodel.QuoteViewModel
+import com.arsenijjke.favquotes.ui.viewmodel.RemoteViewModel
+import com.arsenijjke.domain.interfaces.AdapterController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_quote.*
-import kotlinx.coroutines.*
 
 @AndroidEntryPoint
-class QuoteFragment : Fragment(R.layout.fragment_quote) {
+class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     private val binding: FragmentQuoteBinding by viewBinding()
-    private val viewModel: QuoteViewModel by viewModels()
+    private val viewModel: RemoteViewModel by viewModels()
     private var adapter = QuoteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupAdapter()
         fillAdapter()
         swipeLeft()
         toQuoteInfo()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun swipeLeft() {
         motionLayout.setTransitionListener(object : TransitionAdapter() {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onTransitionCompleted(motionLayout: MotionLayout, currentId: Int) {
                 when (currentId) {
                     R.id.offScreenUnlike,
@@ -58,7 +55,9 @@ class QuoteFragment : Fragment(R.layout.fragment_quote) {
         binding.btn.isEnabled = true
     }
 
-    fun fillAdapter() {
+    // Implementation adapter functions region
+
+    override fun fillAdapter() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.getQuote()
             viewModel.quoteOfTheDay.collect { data ->
@@ -70,16 +69,20 @@ class QuoteFragment : Fragment(R.layout.fragment_quote) {
         }
     }
 
-    private fun setupAdapter() {
+    override fun setupAdapter() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
     }
 
-    private fun cleanAdapter() {
+    override fun cleanAdapterElements() {
         while (adapter.quotes.size > 2) {
             adapter.quotes.removeFirst()
         }
     }
+
+    // Endregion
+
+    // Quote Information Region
 
     private fun sendQuoteToInfo(): Bundle {
         val bundle = Bundle()
@@ -100,12 +103,16 @@ class QuoteFragment : Fragment(R.layout.fragment_quote) {
                 extras
             )
         }
-        cleanAdapter()
+        cleanAdapterElements()
     }
+    // EndRegion
+
+    // Adding to DataBase region
 
     private fun makeFavourite() {
         //TODO("By swiping right, add quote to favourites")
     }
+    // EndRegion
 
 }
 

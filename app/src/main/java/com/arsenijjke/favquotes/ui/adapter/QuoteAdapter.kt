@@ -19,16 +19,13 @@ class QuoteAdapter : RecyclerView.Adapter<QuoteAdapter.ViewHolder>() {
     )
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        // val name = binding.quoteBody
-        // val body = binding.quoteBody
         val name = view.findViewById<TextView>(R.id.quote_author)
         val body = view.findViewById<TextView>(R.id.quote_body)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val item = LayoutInflater.from(parent.context)
-            .inflate(R.layout.simple_list_item,parent,false)
+            .inflate(R.layout.quote_item,parent,false)
         return ViewHolder(item)
     }
 
