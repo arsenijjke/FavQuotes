@@ -121,9 +121,5 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
         Toast.makeText(context,"AddedTo Db",Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        activity?.viewModelStore?.clear()
-    }
 }
 

@@ -9,14 +9,10 @@ import com.arsenijjke.domain.models.QuoteOfTheDay
 import com.arsenijjke.domain.models.QuoteX
 import com.arsenijjke.favquotes.R
 import kotlinx.android.synthetic.main.saved_quote_item.view.*
-class SavedQuotesAdapter: RecyclerView.Adapter<SavedQuotesAdapter.ViewHolder>() {
 
-    var quotes = listOf(
-        QuoteOfTheDay(
-            "",
-            QuoteX("arsenijjke","","Welcome to FavQuotes")
-        )
-    )
+class SavedQuotesAdapter : RecyclerView.Adapter<SavedQuotesAdapter.ViewHolder>() {
+
+    var quotes = mutableListOf<QuoteOfTheDay>()
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name = view.findViewById<TextView>(R.id.quote_author)

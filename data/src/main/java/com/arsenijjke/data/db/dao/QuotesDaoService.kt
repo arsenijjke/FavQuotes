@@ -7,7 +7,6 @@ import com.arsenijjke.data.db.models.QuoteEntity
 @Dao
 interface QuotesDaoService {
 
-    @Transaction
     @Query("SELECT * FROM Quotes_DB")
     fun getAllQuotes(): Flow<List<QuoteEntity>>
 

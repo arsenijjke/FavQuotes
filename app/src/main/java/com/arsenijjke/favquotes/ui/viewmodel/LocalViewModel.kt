@@ -15,16 +15,16 @@ class LocalViewModel @Inject constructor(
     private var _savedQuotes = MutableStateFlow<List<QuoteOfTheDay>>(listOf())
     val savedQuotes: StateFlow<List<QuoteOfTheDay>> get() = _savedQuotes
 
-    suspend fun getFavouriteQuotes() {
+    suspend fun getFavouriteQuotes(): List<QuoteOfTheDay> {
+        var list = listOf<QuoteOfTheDay>()
         repository.lendQuotes().collect {data ->
-            _savedQuotes.value = data
+            list = data
         }
+        return list
     }
 
     suspend fun addQuote(quote: QuoteOfTheDay) {
         repository.addQuote(quote)
     }
-
-
 
 }
