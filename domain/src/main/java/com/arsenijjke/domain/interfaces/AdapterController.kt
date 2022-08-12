@@ -4,7 +4,5 @@ interface AdapterController {
 
     fun setupAdapter()
 
-    fun cleanAdapterElements()
-
     fun fillAdapter()
 }

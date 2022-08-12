@@ -21,4 +21,10 @@ class LocalViewModel @Inject constructor(
         }
     }
 
+    suspend fun addQuote(quote: QuoteOfTheDay) {
+        repository.addQuote(quote)
+    }
+
+
+
 }

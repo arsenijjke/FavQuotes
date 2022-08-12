@@ -17,18 +17,24 @@ class LocalRepositoryImpl @Inject constructor(
     //todo refactor
     override suspend fun lendQuotes(): Flow<List<QuoteOfTheDay>> {
         val list = daoService.getAllQuotes().toList().first()
-        val glist = mutableListOf<QuoteOfTheDay>()
+        val quotes = mutableListOf<QuoteOfTheDay>()
         for(i in list.indices) {
-            glist[i] = QuoteOfTheDay("", QuoteX(
+            quotes[i] = QuoteOfTheDay("", QuoteX(
                 author = list.first().author,
                 author_permalink = "",
                 body = list.first().body)
             )
         }
-        return flowOf(glist)
+        return flowOf(quotes)
     }
 
     override suspend fun addQuote(quote: QuoteOfTheDay) {
         daoService.insertQuote(quote.toEntity())
     }
+
+    override suspend fun deleteQuote() {
+        daoService.deleteQuotes()
+    }
+
+
 }

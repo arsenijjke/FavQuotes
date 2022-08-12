@@ -14,11 +14,25 @@
         <action
             android:id="@+id/toInfo"
             app:destination="@id/quoteInfoFragment" />
+        <action
+            android:id="@+id/toSavedQuotes"
+            app:destination="@id/savedQuotesFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/quoteInfoFragment"
         android:name="com.arsenijjke.favquotes.ui.fragment.QuoteInfoFragment"
         android:label="fragment_quote_info"
         tools:layout="@layout/fragment_quote_info" />
+
+    <fragment
+        android:id="@+id/savedQuotesFragment"
+        android:name="com.arsenijjke.favquotes.ui.fragment.SavedQuotesFragment"
+        android:label="fragment_saved_quotes"
+        tools:layout="@layout/fragment_saved_quotes" >
+        <action
+            android:id="@+id/action_savedQuotesFragment_to_quoteInfoFragment"
+            app:destination="@id/quoteInfoFragment" />
+    </fragment>
 
 </navigation>

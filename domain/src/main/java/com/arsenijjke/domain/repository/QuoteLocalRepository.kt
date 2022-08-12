@@ -8,4 +8,6 @@ interface QuoteLocalRepository {
     suspend fun lendQuotes(): Flow<List<QuoteOfTheDay>>
 
     suspend fun addQuote(quote: QuoteOfTheDay)
+
+    suspend fun deleteQuote()
 }

@@ -12,7 +12,9 @@ import com.arsenijjke.favquotes.R
 import com.arsenijjke.favquotes.ui.adapter.SavedQuotesAdapter
 import com.arsenijjke.favquotes.ui.viewmodel.LocalViewModel
 import com.arsenijjke.favquotes.databinding.FragmentSavedQuotesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SavedQuotesFragment : Fragment(R.layout.fragment_saved_quotes), AdapterController {
 
     private val binding: FragmentSavedQuotesBinding by viewBinding()
@@ -21,17 +23,14 @@ class SavedQuotesFragment : Fragment(R.layout.fragment_saved_quotes), AdapterCon
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapter()
+        fillAdapter()
     }
 
     override fun setupAdapter() {
         val gridLayoutManager = GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
         binding.recyclerView.layoutManager = gridLayoutManager
         binding.recyclerView.adapter = adapter
-    }
-
-    @Suppress("UNUSED")
-    override fun cleanAdapterElements() {
-        TODO("Not yet implemented")
     }
 
     override fun fillAdapter() {
@@ -42,4 +41,5 @@ class SavedQuotesFragment : Fragment(R.layout.fragment_saved_quotes), AdapterCon
             }
         }
     }
+
 }
