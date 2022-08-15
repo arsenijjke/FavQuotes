@@ -2,18 +2,18 @@ package com.arsenijjke.favquotes.ui.fragment
 
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.transition.Visibility
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.arsenijjke.favquotes.ui.viewmodel.RemoteViewModel
 import com.arsenijjke.favquotes.R
 import com.arsenijjke.favquotes.databinding.FragmentQuoteInfoBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 
 class QuoteInfoFragment : Fragment(R.layout.fragment_quote_info) {
 
     private val binding: FragmentQuoteInfoBinding by viewBinding()
+    private val viewModel: RemoteViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,10 +34,9 @@ class QuoteInfoFragment : Fragment(R.layout.fragment_quote_info) {
     }
 
     private fun setUI() {
-        val bundle = this.arguments
-        binding.quoteBody.text = bundle?.getString("body")
-        binding.quoteAuthor.text = bundle?.getString("author")
-        binding.likeCounter.text = bundle?.getInt("likes").toString()
-        binding.dislikeCounter.text = bundle?.getInt("dislikes").toString()
+        binding.quoteBody.text = viewModel.quoteOfTheDay.value.quote.body
+        binding.quoteAuthor.text = viewModel.quoteOfTheDay.value.quote.author
+        binding.likeCounter.text = viewModel.quoteOfTheDay.value.quote.upvotes_count.toString()
+        binding.dislikeCounter.text = viewModel.quoteOfTheDay.value.quote.upvotes_count.toString()
     }
 }

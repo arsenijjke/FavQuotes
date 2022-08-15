@@ -1,6 +1,5 @@
 package com.arsenijjke.favquotes.ui.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.arsenijjke.domain.interfaces.AdapterController
-import com.arsenijjke.domain.models.QuoteOfTheDay
 import com.arsenijjke.favquotes.R
 import com.arsenijjke.favquotes.ui.adapter.SavedQuotesAdapter
 import com.arsenijjke.favquotes.ui.viewmodel.LocalViewModel
@@ -38,10 +36,8 @@ class SavedQuotesFragment : Fragment(R.layout.fragment_saved_quotes), AdapterCon
 
     override fun fillAdapter() {
         lifecycleScope.launch {
-            for(i in viewModel.getFavouriteQuotes().indices) {
-                adapter.quotes[i].quote.body = viewModel.getFavouriteQuotes()[i].quote.body
-                adapter.quotes[i].quote.author = viewModel.getFavouriteQuotes()[i].quote.author
-            }
+            viewModel.getFavouriteQuotes()
+            adapter.quotes = viewModel.savedQuotes.value.toMutableList()
         }
     }
 

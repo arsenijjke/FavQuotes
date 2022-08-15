@@ -4,9 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.TransitionAdapter
+import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_quote.*
 class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     private val binding: FragmentQuoteBinding by viewBinding()
-    private val remoteViewModel: RemoteViewModel by viewModels()
+    private val remoteViewModel: RemoteViewModel by activityViewModels()
     private val localViewModel: LocalViewModel by viewModels()
     private var adapter = QuoteAdapter()
 
@@ -69,7 +70,7 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
     // Implementation adapter functions region
 
     override fun fillAdapter() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             remoteViewModel.getQuote()
             remoteViewModel.quoteOfTheDay.collect { data ->
                 binding.btn.isEnabled = true
@@ -89,27 +90,18 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
 
     // Quote Information Region
 
-    private fun sendQuoteToInfo(): Bundle {
-        val bundle = Bundle()
-        bundle.putString("body", adapter.quotes.first().quote.body)
-        bundle.putString("author", adapter.quotes.first().quote.author)
-        bundle.putInt("likes", adapter.quotes.first().quote.upvotes_count)
-        bundle.putInt("dislikes", adapter.quotes.first().quote.downvotes_count)
-        return bundle
-    }
-
     private fun toQuoteInfo() {
         binding.btn.setOnClickListener {
             val extras = FragmentNavigatorExtras(binding.cardOne to "receiveCard")
 
-            findNavController().navigate(QuoteFragmentDirections.toSavedQuotes())
+            //findNavController().navigate(QuoteFragmentDirections.toSavedQuotes())
 
-            //findNavController().navigate(
-            //    R.id.toInfo,
-            //    sendQuoteToInfo(),
-            //    null,
-            //    extras
-            //)
+            findNavController().navigate(
+                R.id.toInfo,
+                bundleOf(),
+                null,
+                extras
+            )
         }
     }
     // EndRegion
@@ -118,7 +110,6 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             localViewModel.addQuote(quote)
         }
-        Toast.makeText(context,"AddedTo Db",Toast.LENGTH_SHORT).show()
     }
 
 }

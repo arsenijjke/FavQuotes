@@ -16,9 +16,14 @@ class RemoteViewModel @Inject constructor(
     private var _quoteOfTheDay = MutableStateFlow(QuoteOfTheDay("", QuoteX("", "", "")))
     val quoteOfTheDay: StateFlow<QuoteOfTheDay> get() = _quoteOfTheDay
 
+    //Check if after moving to other fragment quote is saved return last
     suspend fun getQuote() {
-        repository.fetchQuote().collect {
-            _quoteOfTheDay.value = it
+        if (quoteOfTheDay.value.quote.body.isEmpty()) {
+            repository.fetchQuote().collect {
+                _quoteOfTheDay.value = it
+            }
+        } else {
+            _quoteOfTheDay.value = quoteOfTheDay.value
         }
     }
 
