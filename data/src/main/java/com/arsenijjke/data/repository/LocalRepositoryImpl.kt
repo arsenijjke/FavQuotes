@@ -20,9 +20,9 @@ class LocalRepositoryImpl @Inject constructor(
         val quotes = mutableListOf<QuoteOfTheDay>()
         for(i in list.indices) {
             quotes[i] = QuoteOfTheDay("", QuoteX(
-                author = list.first().author,
+                author = list[i].author,
                 author_permalink = "",
-                body = list.first().body)
+                body = list[i].body)
             )
         }
         return flowOf(quotes)
@@ -32,9 +32,7 @@ class LocalRepositoryImpl @Inject constructor(
         daoService.insertQuote(quote.toEntity())
     }
 
-    override suspend fun deleteQuote() {
+    override suspend fun deleteQuotes() {
         daoService.deleteQuotes()
     }
-
-
 }

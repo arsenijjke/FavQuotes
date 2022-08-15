@@ -9,5 +9,5 @@ interface QuoteLocalRepository {
 
     suspend fun addQuote(quote: QuoteOfTheDay)
 
-    suspend fun deleteQuote()
+    suspend fun deleteQuotes()
 }

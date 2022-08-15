@@ -6,24 +6,6 @@
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_scene">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/materialToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.FavQuotes.Toolbar"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:subtitleTextAppearance="@string/app_name">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name" />
-
-    </com.google.android.material.appbar.MaterialToolbar>
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -35,7 +17,7 @@
         android:indeterminateDrawable="@drawable/progress_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/materialToolbar" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardTwo"

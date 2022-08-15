@@ -35,7 +35,6 @@ class QuoteFragment : Fragment(R.layout.fragment_quote), AdapterController {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
-        fillAdapter()
         swipe()
         toQuoteInfo()
     }
